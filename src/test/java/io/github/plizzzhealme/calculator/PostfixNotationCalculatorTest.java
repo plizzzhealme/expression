@@ -1,11 +1,10 @@
-package io.github.plizzzhealme.calculator.postfix;
+package io.github.plizzzhealme.calculator;
 
-import io.github.plizzzhealme.calculator.Calculator;
-import io.github.plizzzhealme.calculator.CalculatorFactory;
-import io.github.plizzzhealme.calculator.PostfixNotationCalculator;
+import io.github.plizzzhealme.calculator.exception.CalculatorException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PostfixNotationCalculatorTest {
 
@@ -27,5 +26,12 @@ class PostfixNotationCalculatorTest {
         int actual = calculator.calculate("2*(3+5)/(2+2)");
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void calculateWithInvalidParameters() {
+        Calculator calculator = CalculatorFactory.getInstance().getCalculator();
+
+        assertThrows(CalculatorException.class, () -> calculator.calculate("abc"));
     }
 }

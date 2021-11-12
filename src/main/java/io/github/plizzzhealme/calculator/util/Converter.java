@@ -20,7 +20,6 @@ public class Converter {
     }
 
     private Converter() {
-
     }
 
     public static List<String> convertInfixToPostfix(List<String> expression) {

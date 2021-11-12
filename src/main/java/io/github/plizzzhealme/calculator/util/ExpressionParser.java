@@ -8,10 +8,10 @@ public class ExpressionParser {
 
     public static final String DELIMITERS = "()*/+-";
 
-    private ExpressionParser() {}
+    private ExpressionParser() {
+    }
 
     public static List<String> parse(String expression) {
-
         List<String> result = new ArrayList<>();
         StringTokenizer expressionTokenizer = new StringTokenizer(expression, DELIMITERS, true);
 

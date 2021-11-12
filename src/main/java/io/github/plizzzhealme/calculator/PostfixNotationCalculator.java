@@ -18,6 +18,9 @@ public class PostfixNotationCalculator implements Calculator {
     public static final String LEFT_PARENTHESIS = "(";
     public static final String RIGHT_PARENTHESIS = ")";
 
+    PostfixNotationCalculator() { // friendly access modifier to force users to use the factory
+    }
+
     @Override
     public int calculate(String expression) {
         List<String> parsedExpression = ExpressionParser.parse(expression);
