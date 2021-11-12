@@ -23,6 +23,10 @@ public class PostfixNotationCalculator implements Calculator {
 
     @Override
     public int calculate(String expression) {
+        if (expression == null || expression.isEmpty()) {
+            throw new CalculatorException("Expression is not instantiated");
+        }
+
         List<String> parsedExpression = ExpressionParser.parse(expression);
 
         if (!Validator.isValidExpression(parsedExpression)) {

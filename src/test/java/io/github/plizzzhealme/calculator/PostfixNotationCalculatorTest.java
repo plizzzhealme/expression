@@ -34,4 +34,11 @@ class PostfixNotationCalculatorTest {
 
         assertThrows(CalculatorException.class, () -> calculator.calculate("abc"));
     }
+
+    @Test
+    void calculateWithNull() {
+        Calculator calculator = CalculatorFactory.getInstance().getCalculator();
+
+        assertThrows(CalculatorException.class, () -> calculator.calculate(null));
+    }
 }
