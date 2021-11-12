@@ -1,33 +1,29 @@
-package io.github.plizzzhealme.calculator;
+package io.github.plizzzhealme.calculator.util;
+
+import io.github.plizzzhealme.calculator.PostfixNotationCalculator;
 
 import java.util.*;
 
+import static io.github.plizzzhealme.calculator.PostfixNotationCalculator.*;
+
 public class Converter {
 
-    public static final String PLUS = "+";
-    public static final String MINUS = "-";
-    public static final String MULTIPLY = "*";
-    public static final String DIVIDE = "/";
-    public static final String POW = "^";
-    public static final String LEFT_PARENTHESIS = "(";
-    public static final String RIGHT_PARENTHESIS = ")";
     private static final Map<String, Integer> OPERAND_PRIORITIES;
 
     static {
         OPERAND_PRIORITIES = new HashMap<>();
-        OPERAND_PRIORITIES.put(LEFT_PARENTHESIS, 0);
+        OPERAND_PRIORITIES.put(PostfixNotationCalculator.LEFT_PARENTHESIS, 0);
         OPERAND_PRIORITIES.put(PLUS, 1);
         OPERAND_PRIORITIES.put(MINUS, 1);
         OPERAND_PRIORITIES.put(MULTIPLY, 2);
         OPERAND_PRIORITIES.put(DIVIDE, 2);
-        OPERAND_PRIORITIES.put(POW, 3);
     }
 
     private Converter() {
 
     }
 
-    public static List<String> convertToPostfixNotation(List<String> expression) {
+    public static List<String> convertInfixToPostfix(List<String> expression) {
 
         List<String> postfixExpression = new ArrayList<>();
         Deque<String> operands = new LinkedList<>();
@@ -38,7 +34,7 @@ public class Converter {
 
                 case RIGHT_PARENTHESIS -> addRightParenthesis(postfixExpression, operands);
 
-                case POW, MULTIPLY, DIVIDE, PLUS, MINUS -> addOperand(postfixExpression, operands, token);
+                case MULTIPLY, DIVIDE, PLUS, MINUS -> addOperand(postfixExpression, operands, token);
 
                 default -> addNumber(postfixExpression, token);
             }

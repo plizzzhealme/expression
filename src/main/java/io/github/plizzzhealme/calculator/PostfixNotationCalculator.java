@@ -1,6 +1,9 @@
 package io.github.plizzzhealme.calculator;
 
 import io.github.plizzzhealme.calculator.exception.CalculatorException;
+import io.github.plizzzhealme.calculator.util.Converter;
+import io.github.plizzzhealme.calculator.util.ExpressionParser;
+import io.github.plizzzhealme.calculator.util.Validator;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -8,32 +11,34 @@ import java.util.List;
 
 public class PostfixNotationCalculator implements Calculator {
 
+    public static final String PLUS = "+";
+    public static final String MINUS = "-";
+    public static final String MULTIPLY = "*";
+    public static final String DIVIDE = "/";
+    public static final String LEFT_PARENTHESIS = "(";
+    public static final String RIGHT_PARENTHESIS = ")";
+
     @Override
     public int calculate(String expression) {
-        ExpressionParser parser = new ExpressionParser();
-        List<String> parsedExpression = parser.parse(expression);
+        List<String> parsedExpression = ExpressionParser.parse(expression);
 
         if (!Validator.isValidExpression(parsedExpression)) {
             throw new CalculatorException("Incorrect expression");
         }
 
-        List<String> postfixNotationExpression = Converter.convertToPostfixNotation(parsedExpression);
+        List<String> postfixNotationExpression = Converter.convertInfixToPostfix(parsedExpression);
         return calcValue(postfixNotationExpression);
     }
 
     private int calcValue(List<String> postfixNotationExpression) {
-        if (postfixNotationExpression == null) {
-            throw new CalculatorException("Expression is not instantiated");
-        }
-
         Deque<String> stack = new LinkedList<>();
 
         for (String token : postfixNotationExpression) {
             switch (token) {
-                case "+" -> add(stack);
-                case "-" -> subtract(stack);
-                case "*" -> multiply(stack);
-                case "/" -> divide(stack);
+                case PLUS -> add(stack);
+                case MINUS -> subtract(stack);
+                case MULTIPLY -> multiply(stack);
+                case DIVIDE -> divide(stack);
                 default -> stack.push(token);
             }
         }
